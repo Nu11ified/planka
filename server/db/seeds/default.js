@@ -31,30 +31,33 @@ exports.seed = async (knex) => {
   if (email) {
     const data = buildData();
 
-    let userId;
-    try {
-      [{ id: userId }] = await knex('user_account').insert(
-        {
-          ...data,
-          email,
-          subscribeToOwnCards: false,
-          subscribeToCardWhenCommenting: true,
-          turnOffRecentCardHighlighting: false,
-          enableFavoritesByDefault: false,
-          defaultEditorMode: 'wysiwyg',
-          defaultHomeView: 'groupedProjects',
-          defaultProjectsOrder: 'byDefault',
-          createdAt: new Date().toISOString(),
-        },
-        'id',
-      );
-    } catch (error) {
-      /* empty */
-    }
+    // Check if user already exists
+    const existingUser = await knex('user_account').where('email', email).first();
 
-    if (!userId) {
+    if (existingUser) {
+      // Always update existing user with current env vars
+      console.log(`Updating existing admin user: ${email}`);
       await knex('user_account').update(data).where('email', email);
+      console.log('Admin user updated successfully');
+    } else {
+      // Create new user
+      console.log(`Creating new admin user: ${email}`);
+      await knex('user_account').insert({
+        ...data,
+        email,
+        subscribeToOwnCards: false,
+        subscribeToCardWhenCommenting: true,
+        turnOffRecentCardHighlighting: false,
+        enableFavoritesByDefault: false,
+        defaultEditorMode: 'wysiwyg',
+        defaultHomeView: 'groupedProjects',
+        defaultProjectsOrder: 'byDefault',
+        createdAt: new Date().toISOString(),
+      });
+      console.log('Admin user created successfully');
     }
+  } else {
+    console.log('No DEFAULT_ADMIN_EMAIL set, skipping admin user creation');
   }
 
   const activeUsersLimit = parseInt(process.env.ACTIVE_USERS_LIMIT, 10);
