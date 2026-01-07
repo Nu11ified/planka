@@ -64,11 +64,11 @@ const PublicBoard = React.memo(() => {
     fetchPublicBoard();
   }, [id, dispatch]);
 
-  // Sort lists by position
+  // Sort lists by position (only show active lists, not archive/trash)
   const sortedLists = useMemo(() => {
     if (!lists) return [];
     return [...lists]
-      .filter((list) => list.type === 'kanban')
+      .filter((list) => list.type === 'active')
       .sort((a, b) => a.position - b.position);
   }, [lists]);
 
