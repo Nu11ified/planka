@@ -2,7 +2,7 @@ services:
   planka-server:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     image: planka-dev
     pull_policy: never
     command: ["bash", "-c", "npm install && npm run db:init && npm start"]
@@ -19,7 +19,7 @@ services:
       SECRET_KEY: ${SECRET_KEY}
 
       # Logging / runtime
-      NODE_ENV: development
+      NODE_ENV: production
       LOG_LEVEL: warn
       TRUST_PROXY: "true"
 
@@ -67,4 +67,7 @@ services:
       - 3011:3000
 
 volumes:
-  db-data:
+  favicons:
+  user-avatars:
+  background-images:
+  attachments:
