@@ -6,14 +6,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Logo from '../../assets/images/logo.svg?react';
+import logoSrc from '../../assets/images/logo.png';
 
 import styles from './PublicHeader.module.scss';
 
 const PublicHeader = React.memo(({ boardName, projectName }) => (
   <div className={styles.wrapper}>
     <div className={styles.logo}>
-      <Logo />
+      <img src={logoSrc} alt="Logo" />
     </div>
     <div className={styles.info}>
       {projectName && <span className={styles.projectName}>{projectName}</span>}
