@@ -27,8 +27,8 @@ services:
       TOKEN_EXPIRES_IN: "365"
 
       # PostgreSQL / Knex SSL handling
-      PGSSLMODE: ${PGSSLMODE:-disable}
-      KNEX_REJECT_UNAUTHORIZED_SSL_CERTIFICATE: "false"
+      PGSSLMODE: ${PGSSLMODE:-false}
+      #KNEX_REJECT_UNAUTHORIZED_SSL_CERTIFICATE: "false"
 
       # Language
       DEFAULT_LANGUAGE: en-US
