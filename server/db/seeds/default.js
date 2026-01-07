@@ -13,13 +13,18 @@ const buildData = () => {
   };
 
   if (process.env.DEFAULT_ADMIN_PASSWORD) {
+    console.log('DEFAULT_ADMIN_PASSWORD is set, hashing password...');
     data.password = bcrypt.hashSync(process.env.DEFAULT_ADMIN_PASSWORD, 10);
+  } else {
+    console.log('WARNING: DEFAULT_ADMIN_PASSWORD is NOT set!');
   }
   if (process.env.DEFAULT_ADMIN_NAME) {
     data.name = process.env.DEFAULT_ADMIN_NAME;
+    console.log(`Admin name: ${data.name}`);
   }
   if (process.env.DEFAULT_ADMIN_USERNAME) {
     data.username = process.env.DEFAULT_ADMIN_USERNAME.toLowerCase();
+    console.log(`Admin username: ${data.username}`);
   }
 
   return data;

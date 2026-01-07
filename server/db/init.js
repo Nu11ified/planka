@@ -11,9 +11,15 @@ const knex = initKnex(knexfile);
 
 (async () => {
   try {
+    console.log('Running migrations...');
     await knex.migrate.latest();
+    console.log('Migrations complete.');
+
+    console.log('Running seeds...');
     await knex.seed.run();
+    console.log('Seeds complete.');
   } catch (error) {
+    console.error('Database initialization failed:', error.message);
     process.exitCode = 1;
     throw error;
   } finally {

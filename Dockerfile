@@ -1,6 +1,7 @@
 # Stage 1: Server build
 FROM node:22-alpine AS server
 
+ARG CACHE_BUST=1
 RUN apk -U upgrade \
   && apk add build-base python3 --no-cache
 

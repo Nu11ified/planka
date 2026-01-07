@@ -33,5 +33,9 @@ load_secret SMTP_PASSWORD
 
 export NODE_ENV=production
 
+echo "Starting Planka..."
+echo "Running database initialization..."
 node db/init.js
+echo "Database initialization complete."
+echo "Starting application..."
 exec node app.js --prod
