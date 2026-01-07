@@ -6,10 +6,11 @@
 const bcrypt = require('bcrypt');
 
 const buildData = () => {
+  // Use snake_case to match actual database column names
   const data = {
     role: 'admin',
-    isSsoUser: false,
-    isDeactivated: false,
+    is_sso_user: false,
+    is_deactivated: false,
   };
 
   if (process.env.DEFAULT_ADMIN_PASSWORD) {
@@ -50,14 +51,14 @@ exports.seed = async (knex) => {
       await knex('user_account').insert({
         ...data,
         email,
-        subscribeToOwnCards: false,
-        subscribeToCardWhenCommenting: true,
-        turnOffRecentCardHighlighting: false,
-        enableFavoritesByDefault: false,
-        defaultEditorMode: 'wysiwyg',
-        defaultHomeView: 'groupedProjects',
-        defaultProjectsOrder: 'byDefault',
-        createdAt: new Date().toISOString(),
+        subscribe_to_own_cards: false,
+        subscribe_to_card_when_commenting: true,
+        turn_off_recent_card_highlighting: false,
+        enable_favorites_by_default: false,
+        default_editor_mode: 'wysiwyg',
+        default_home_view: 'groupedProjects',
+        default_projects_order: 'byDefault',
+        created_at: new Date().toISOString(),
       });
       console.log('Admin user created successfully');
     }
