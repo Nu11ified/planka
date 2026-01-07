@@ -26,6 +26,7 @@
  *         - limitCardTypesToDefaultOne
  *         - alwaysDisplayCardCreator
  *         - expandTaskListsByDefault
+ *         - isPublic
  *         - createdAt
  *         - updatedAt
  *       properties:
@@ -71,6 +72,11 @@
  *           type: boolean
  *           default: false
  *           description: Whether to expand task lists by default
+ *           example: false
+ *         isPublic:
+ *           type: boolean
+ *           default: false
+ *           description: Whether the board is publicly accessible
  *           example: false
  *         createdAt:
  *           type: string
@@ -141,6 +147,11 @@ module.exports = {
       type: 'boolean',
       defaultsTo: false,
       columnName: 'expand_task_lists_by_default',
+    },
+    isPublic: {
+      type: 'boolean',
+      defaultsTo: false,
+      columnName: 'is_public',
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗

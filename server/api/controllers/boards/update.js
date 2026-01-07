@@ -59,6 +59,10 @@
  *                 type: boolean
  *                 description: Whether to expand task lists by default
  *                 example: false
+ *               isPublic:
+ *                 type: boolean
+ *                 description: Whether the board is publicly accessible
+ *                 example: false
  *               isSubscribed:
  *                 type: boolean
  *                 description: Whether the current user is subscribed to the board
@@ -123,6 +127,9 @@ module.exports = {
     expandTaskListsByDefault: {
       type: 'boolean',
     },
+    isPublic: {
+      type: 'boolean',
+    },
     isSubscribed: {
       type: 'boolean',
     },
@@ -161,6 +168,7 @@ module.exports = {
         'limitCardTypesToDefaultOne',
         'alwaysDisplayCardCreator',
         'expandTaskListsByDefault',
+        'isPublic',
       );
     }
     if (isBoardMember) {
@@ -179,6 +187,7 @@ module.exports = {
       'limitCardTypesToDefaultOne',
       'alwaysDisplayCardCreator',
       'expandTaskListsByDefault',
+      'isPublic',
       'isSubscribed',
     ]);
 

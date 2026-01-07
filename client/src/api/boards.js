@@ -8,6 +8,17 @@ import socket from './socket';
 import { transformCard } from './cards';
 import { transformAttachment } from './attachments';
 
+/* Transforms */
+
+const transformPublicBoardBody = (body) => ({
+  ...body,
+  included: {
+    ...body.included,
+    cards: body.included.cards.map(transformCard),
+    attachments: body.included.attachments.map(transformAttachment),
+  },
+});
+
 /* Actions */
 
 const createBoard = (projectId, data, headers) =>
@@ -32,10 +43,14 @@ const updateBoard = (id, data, headers) => socket.patch(`/boards/${id}`, data, h
 
 const deleteBoard = (id, headers) => socket.delete(`/boards/${id}`, undefined, headers);
 
+const getPublicBoard = (id) =>
+  http.get(`/public/boards/${id}`).then(transformPublicBoardBody);
+
 export default {
   createBoard,
   createBoardWithImport,
   getBoard,
   updateBoard,
   deleteBoard,
+  getPublicBoard,
 };

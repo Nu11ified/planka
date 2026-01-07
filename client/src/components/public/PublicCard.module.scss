@@ -1,0 +1,84 @@
+/*!
+ * Copyright (c) 2024 PLANKA Software GmbH
+ * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
+ */
+
+:global(#app) {
+  .wrapper {
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+    margin-bottom: 8px;
+    padding: 8px;
+  }
+
+  .labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .label {
+    border-radius: 4px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 2px 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .label_berry-red { background: #b04632; }
+  .label_pumpkin-orange { background: #cf7a30; }
+  .label_lagoon-blue { background: #2d7186; }
+  .label_pink-tulip { background: #b8509c; }
+  .label_light-mud { background: #8d7651; }
+  .label_orange-peel { background: #cc8d1a; }
+  .label_bright-moss { background: #5ba020; }
+  .label_antique-blue { background: #5869a8; }
+  .label_dark-granite { background: #455664; }
+  .label_lagune-blue { background: #4b8fa2; }
+  .label_sunny-grass { background: #87b32b; }
+  .label_morning-sky { background: #4393af; }
+  .label_light-orange { background: #cf9d36; }
+  .label_midnight-blue { background: #5a6fc0; }
+  .label_tank-green { background: #6d8a3a; }
+  .label_gun-metal { background: #4f5d67; }
+  .label_wet-moss { background: #5b7c5b; }
+  .label_red-burgundy { background: #a14633; }
+  .label_light-concrete { background: #7e8e99; }
+  .label_apricot-red { background: #be5543; }
+  .label_desert-sand { background: #a98658; }
+  .label_navy-blue { background: #374a6b; }
+  .label_egg-yellow { background: #c0a23c; }
+  .label_coral-green { background: #3a8677; }
+  .label_light-cocoa { background: #876b5e; }
+
+  .name {
+    color: #172b4d;
+    font-size: 14px;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+
+  .description {
+    color: #5e6c84;
+    font-size: 12px;
+    line-height: 1.4;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .dueDate {
+    color: #5e6c84;
+    font-size: 11px;
+    margin-top: 8px;
+  }
+}
