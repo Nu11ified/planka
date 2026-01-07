@@ -56,6 +56,15 @@ services:
       # Privacy
       # GRAVATAR_BASE_URL: ${GRAVATAR_BASE_URL:-}
 
-    depends_on:
-      postgres:
-        condition: service_healthy
+  planka-client:
+    image: planka-dev
+    pull_policy: never
+    command: ["bash", "-c", "npm install && npx vite --host"]
+    restart: on-failure
+    volumes:
+      - ./client:/app
+    ports:
+      - 3011:3000
+
+volumes:
+  db-data:
