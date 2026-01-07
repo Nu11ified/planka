@@ -1,0 +1,53 @@
+services:
+  planka:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - 1337:1337
+    volumes:
+      - favicons:/app/public/favicons
+      - user-avatars:/app/public/user-avatars
+      - background-images:/app/public/background-images
+      - attachments:/app/private/attachments
+    environment:
+      # Core
+      BASE_URL: ${BASE_URL}
+      DATABASE_URL: ${DATABASE_URL}
+      SECRET_KEY: ${SECRET_KEY}
+
+      # Runtime
+      TRUST_PROXY: "true"
+      TOKEN_EXPIRES_IN: "365"
+
+      # PostgreSQL SSL
+      PGSSLMODE: ${PGSSLMODE:-disable}
+
+      # Language
+      DEFAULT_LANGUAGE: en-US
+
+      # Default admin (created on first run)
+      DEFAULT_ADMIN_EMAIL: ${DEFAULT_ADMIN_EMAIL}
+      DEFAULT_ADMIN_PASSWORD: ${DEFAULT_ADMIN_PASSWORD}
+      DEFAULT_ADMIN_NAME: ${DEFAULT_ADMIN_NAME}
+      DEFAULT_ADMIN_USERNAME: ${DEFAULT_ADMIN_USERNAME}
+
+      # Limits (optional)
+      STORAGE_LIMIT: ${STORAGE_LIMIT:-}
+      ACTIVE_USERS_LIMIT: ${ACTIVE_USERS_LIMIT:-}
+
+      # SMTP (email notifications)
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_NAME: ${SMTP_NAME:-}
+      SMTP_SECURE: ${SMTP_SECURE:-true}
+      SMTP_TLS_REJECT_UNAUTHORIZED: ${SMTP_TLS_REJECT_UNAUTHORIZED:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+
+volumes:
+  favicons:
+  user-avatars:
+  background-images:
+  attachments:

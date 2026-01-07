@@ -2,9 +2,10 @@ services:
   planka-server:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     image: planka-dev
     pull_policy: never
+    user: root
     working_dir: /app
     command: ["bash", "-c", "npm install && npm run db:init && npm start"]
     restart: on-failure
@@ -60,6 +61,7 @@ services:
   planka-client:
     image: planka-dev
     pull_policy: never
+    user: root
     working_dir: /app
     command: ["bash", "-c", "npm install && npx vite --host"]
     restart: on-failure
