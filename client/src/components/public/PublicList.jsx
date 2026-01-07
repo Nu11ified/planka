@@ -10,7 +10,7 @@ import PublicCard from './PublicCard';
 
 import styles from './PublicList.module.scss';
 
-const PublicList = React.memo(({ list, cards, labelsById, labelIdsByCardId }) => {
+const PublicList = React.memo(({ list, cards, labelsById, labelIdsByCardId, tasksByCardId }) => {
   // Sort cards by position
   const sortedCards = useMemo(
     () => [...cards].sort((a, b) => a.position - b.position),
@@ -24,15 +24,23 @@ const PublicList = React.memo(({ list, cards, labelsById, labelIdsByCardId }) =>
         <span className={styles.count}>{cards.length}</span>
       </div>
       <div className={styles.cards}>
-        {sortedCards.map((card) => (
-          <PublicCard
-            key={card.id}
-            card={card}
-            labels={(labelIdsByCardId[card.id] || [])
-              .map((labelId) => labelsById[labelId])
-              .filter(Boolean)}
-          />
-        ))}
+        {sortedCards.map((card) => {
+          const cardTasks = tasksByCardId[card.id] || [];
+          const tasksTotal = cardTasks.length;
+          const tasksCompleted = cardTasks.filter((t) => t.isCompleted).length;
+
+          return (
+            <PublicCard
+              key={card.id}
+              card={card}
+              labels={(labelIdsByCardId[card.id] || [])
+                .map((labelId) => labelsById[labelId])
+                .filter(Boolean)}
+              tasksTotal={tasksTotal}
+              tasksCompleted={tasksCompleted}
+            />
+          );
+        })}
       </div>
     </div>
   );
@@ -57,6 +65,11 @@ PublicList.propTypes = {
     }),
   ).isRequired,
   labelIdsByCardId: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+  tasksByCardId: PropTypes.objectOf(PropTypes.array),
+};
+
+PublicList.defaultProps = {
+  tasksByCardId: {},
 };
 
 export default PublicList;

@@ -5,7 +5,7 @@
 
 :global(#app) {
   .wrapper {
-    background: #4e6c82;
+    background: linear-gradient(135deg, #4e6c82 0%, #3d5a6e 100%);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -16,7 +16,24 @@
     flex: 1;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 8px 12px 0 20px;
+    padding: 12px 16px 0 16px;
+
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
   }
 
   .listsWrapper {
@@ -25,14 +42,15 @@
 
   .lists {
     display: inline-flex;
-    height: calc(100% - 50px);
+    height: calc(100% - 40px);
     min-width: 100%;
     align-items: flex-start;
+    padding-bottom: 8px;
   }
 
   .loaderWrapper {
     align-items: center;
-    background: #4e6c82;
+    background: linear-gradient(135deg, #4e6c82 0%, #3d5a6e 100%);
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -41,7 +59,7 @@
 
   .errorWrapper {
     align-items: center;
-    background: #4e6c82;
+    background: linear-gradient(135deg, #4e6c82 0%, #3d5a6e 100%);
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -50,42 +68,46 @@
 
   .error {
     background: #fff;
-    border-radius: 8px;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
     color: #172b4d;
     padding: 40px 60px;
     text-align: center;
 
     h1 {
-      font-size: 24px;
+      font-size: 22px;
+      font-weight: 600;
       margin: 0 0 8px;
     }
 
     p {
       color: #6b778c;
+      font-size: 14px;
       margin: 0;
     }
   }
 
   .footer {
     align-items: center;
-    background: rgba(0, 0, 0, 0.16);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.1) 100%);
     display: flex;
     justify-content: space-between;
-    padding: 8px 20px;
+    padding: 6px 16px;
   }
 
   .viewOnly {
-    background: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.18);
     border-radius: 4px;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 4px 8px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
     text-transform: uppercase;
   }
 
   .poweredBy {
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 11px;
   }
 }

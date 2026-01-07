@@ -22,7 +22,7 @@ const PublicBoard = React.memo(() => {
   const [t] = useTranslation();
 
   const publicState = useSelector((state) => state.public);
-  const { board, project, lists, cards, labels, cardLabels, isFetching, error } = publicState;
+  const { board, project, lists, cards, labels, cardLabels, taskLists, tasks, isFetching, error } = publicState;
 
   useEffect(() => {
     const fetchPublicBoard = async () => {
@@ -105,6 +105,29 @@ const PublicBoard = React.memo(() => {
     }, {});
   }, [cardLabels]);
 
+  // Create taskList to card mapping
+  const taskListToCardMap = useMemo(() => {
+    if (!taskLists) return {};
+    return taskLists.reduce((acc, taskList) => {
+      acc[taskList.id] = taskList.cardId;
+      return acc;
+    }, {});
+  }, [taskLists]);
+
+  // Create tasks by card map
+  const tasksByCardId = useMemo(() => {
+    if (!tasks) return {};
+    return tasks.reduce((acc, task) => {
+      const cardId = taskListToCardMap[task.taskListId];
+      if (!cardId) return acc;
+      if (!acc[cardId]) {
+        acc[cardId] = [];
+      }
+      acc[cardId].push(task);
+      return acc;
+    }, {});
+  }, [tasks, taskListToCardMap]);
+
   if (isFetching) {
     return (
       <div className={styles.loaderWrapper}>
@@ -141,6 +164,7 @@ const PublicBoard = React.memo(() => {
                 cards={cardsByListId[list.id] || []}
                 labelsById={labelsById}
                 labelIdsByCardId={labelIdsByCardId}
+                tasksByCardId={tasksByCardId}
               />
             ))}
           </div>
