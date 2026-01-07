@@ -12,9 +12,9 @@ services:
     ports:
       - 1337:1337
     environment:
-      - BASE_URL=http://localhost:1337
-      - DATABASE_URL=postgresql://postgres@postgres/planka
-      - SECRET_KEY=notsecretkey
+      # - BASE_URL=http://localhost:1337
+      # - DATABASE_URL=postgresql://postgres@postgres/planka
+      # - SECRET_KEY=notsecretkey
 
       # - LOG_LEVEL=warn
 
@@ -103,26 +103,7 @@ services:
     volumes:
       - ./client:/app
     ports:
-      - 3000:3000
-
-  postgres:
-    image: postgres:16-alpine
-    restart: on-failure
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=planka
-      - POSTGRES_HOST_AUTH_METHOD=trust
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-planka} && psql -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-planka} -c 'SELECT 1'",
-        ]
-      interval: 3s
-      timeout: 5s
-      retries: 15
-      start_period: 10s
+      - 3011:3000
 
 volumes:
   db-data:
