@@ -34,8 +34,36 @@ load_secret SMTP_PASSWORD
 export NODE_ENV=production
 
 echo "Starting Planka..."
+
+# Wait for database to be ready
+echo "Waiting for database..."
+MAX_RETRIES=30
+RETRY_COUNT=0
+
+until node -e "
+const knex = require('knex')(require('./db/knexfile'));
+knex.raw('SELECT 1').then(() => {
+  console.log('Database is ready');
+  knex.destroy();
+  process.exit(0);
+}).catch((err) => {
+  console.log('Database not ready:', err.message);
+  knex.destroy();
+  process.exit(1);
+});
+" 2>/dev/null; do
+  RETRY_COUNT=$((RETRY_COUNT + 1))
+  if [ $RETRY_COUNT -ge $MAX_RETRIES ]; then
+    echo "ERROR: Database not available after $MAX_RETRIES attempts"
+    exit 1
+  fi
+  echo "Waiting for database... (attempt $RETRY_COUNT/$MAX_RETRIES)"
+  sleep 2
+done
+
 echo "Running database initialization..."
 node db/init.js
 echo "Database initialization complete."
+
 echo "Starting application..."
 exec node app.js --prod
